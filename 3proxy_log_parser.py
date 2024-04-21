@@ -1,3 +1,4 @@
+import os
 import re
 from collections import Counter
 import geoip2.database
@@ -26,7 +27,7 @@ if __name__ == "__main__":
     result = parse_log_file(log_file_path)
 
     sorted_ips = result.most_common()
-    reader = geoip2.database.Reader('./GeoLite2-Country.mmdb')
+    reader = geoip2.database.Reader(os.path.join(os.path.dirname(__file__), 'GeoLite2-Country.mmdb'))
 
     for ip, count in sorted_ips:
         country = reader.country(ip).country.name
