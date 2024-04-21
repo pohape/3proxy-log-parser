@@ -1,6 +1,7 @@
 import re
 from collections import Counter
 import geoip2.database
+import sys
 
 
 def parse_log_file(file_path):
@@ -10,19 +11,23 @@ def parse_log_file(file_path):
     with open(file_path, 'r') as file:
         for line in file:
             match = re.search(ip_pattern, line)
-
             if match:
                 ip_counts[match.group(1)] += 1
 
     return ip_counts
 
 
-# usage example
-result = parse_log_file('./3proxy_example.log')
+if __name__ == "__main__":
+    if len(sys.argv) < 2:
+        print("Usage: python 3proxy_log_parser.py <path_to_log_file>")
+        sys.exit(1)
 
-sorted_ips = result.most_common()
-reader = geoip2.database.Reader('./GeoLite2-Country.mmdb')
+    log_file_path = sys.argv[1]
+    result = parse_log_file(log_file_path)
 
-for ip, count in sorted_ips:
-    country = reader.country(ip).country.name
-    print(f"IP: {ip}, Country: {country}, Count: {count}")
+    sorted_ips = result.most_common()
+    reader = geoip2.database.Reader('./GeoLite2-Country.mmdb')
+
+    for ip, count in sorted_ips:
+        country = reader.country(ip).country.name
+        print(f"IP: {ip}, Country: {country}, Count: {count}")
