@@ -12,7 +12,7 @@ Create our own /etc/3proxy directory and our own config /etc/3proxy/3proxy.cfg
 
      sudo mkdir /etc/3proxy
      sudo chmod 755 /etc/3proxy
-     sudo curl https://raw.githubusercontent.com/pohape/3proxy/main/3proxy.cfg -o /etc/3proxy/3proxy.cfg;
+     sudo curl https://raw.githubusercontent.com/pohape/3proxy-log-parser/main/3proxy.cfg -o /etc/3proxy/3proxy.cfg;
      sudo chmod 600 /etc/3proxy/3proxy.cfg;
      
 In the /etc/.proxyauth will be stored usernames and passwords for the proxy, please change to your own user and password:
